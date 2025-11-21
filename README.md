@@ -1,52 +1,200 @@
-# MERN Stack Capstone Project
+# Final Project -- Smart Waste Management System
 
-This assignment focuses on designing, developing, and deploying a comprehensive full-stack MERN application that showcases all the skills you've learned throughout the course.
+## Overview
 
-## Assignment Overview
+This project is a **MERN (MongoDB, Express, React, Node.js) Smart Waste
+Management System** designed to allow users to: - Register & log in\
+- Create waste collection requests\
+- Track request status\
+- View assigned waste collectors\
+- Manage roles (Admin & User)
 
-You will:
-1. Plan and design a full-stack MERN application
-2. Develop a robust backend with MongoDB, Express.js, and Node.js
-3. Create an interactive frontend with React.js
-4. Implement testing across the entire application
-5. Deploy the application to production
+Both the **frontend** and **backend** are deployed: - Backend (Render):\
+- Frontend (Vercel):
 
-## Getting Started
+------------------------------------------------------------------------
 
-1. Accept the GitHub Classroom assignment
-2. Clone the repository to your local machine
-3. Follow the instructions in the `Week8-Assignment.md` file
-4. Plan, develop, and deploy your capstone project
+## Project Structure
 
-## Files Included
+    Final-project/
+    │
+    ├── backend/
+    │   ├── controllers/
+    │   ├── middleware/
+    │   ├── models/
+    │   ├── routes/
+    │   ├── server.js
+    │   ├── package.json
+    │   └── .env
+    │
+    └── frontend/
+        ├── src/
+        │   ├── components/
+        │   ├── pages/
+        │   ├── context/
+        │   ├── App.jsx
+        │   └── main.jsx
+        ├── vite.config.js
+        ├── package.json
+        └── .env
 
-- `Week8-Assignment.md`: Detailed assignment instructions
+------------------------------------------------------------------------
 
-## Requirements
+## Backend (Node.js + Express)
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- npm or yarn
-- Git and GitHub account
-- Accounts on deployment platforms (Render/Vercel/Netlify/etc.)
+### Features
 
-## Project Ideas
+-   User authentication (JWT)
+-   Admin & User authorization middleware
+-   Waste request CRUD operations
+-   MongoDB database integration
+-   Environment variables via dotenv
 
-The `Week8-Assignment.md` file includes several project ideas, but you're encouraged to develop your own idea that demonstrates your skills and interests.
+### Backend .env structure
 
-## Submission
+    PORT=5000
+    MONGO_URI=your_mongo_uri
+    JWT_SECRET=your_secret
 
-Your project will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+### Install Dependencies
 
-1. Commit and push your code regularly
-2. Include comprehensive documentation
-3. Deploy your application and add the live URL to your README.md
-4. Create a video demonstration and include the link in your README.md
+    cd backend
+    npm install
 
-## Resources
+### Run Development Server
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Express.js Documentation](https://expressjs.com/)
-- [React Documentation](https://react.dev/)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
-- [GitHub Classroom Guide](https://docs.github.com/en/education/manage-coursework-with-github-classroom) 
+    npm run dev
+
+------------------------------------------------------------------------
+
+## Frontend (React + Vite)
+
+### Features
+
+-   Login & Register UI
+-   Dashboard for waste requests
+-   Forms for submitting new requests
+-   API context management
+-   Protected routes
+-   Beautiful UI with CSS
+
+### Frontend .env file
+
+    VITE_API_URL=http://localhost:5000/api
+
+### Install Dependencies
+
+    cd frontend
+    npm install
+
+### Run Frontend
+
+    npm run dev
+
+------------------------------------------------------------------------
+
+## API Endpoints Summary
+
+### Auth Routes
+
+  Method   Endpoint               Description
+  -------- ---------------------- ---------------------
+  POST     `/api/auth/register`   Register a new user
+  POST     `/api/auth/login`      Login and get JWT
+
+### Waste Request Routes
+
+  Method   Endpoint                  Description
+  -------- ------------------------- -------------------------------
+  POST     `/api/waste`              Create request
+  GET      `/api/waste`              Get all requests (Admin Only)
+  GET      `/api/waste/user`         Get user's requests
+  PUT      `/api/waste/:id/status`   Update request status
+  GET      `/api/waste/:id`          Get request details
+
+------------------------------------------------------------------------
+
+## Role-Based Access
+
+### User
+
+-   Can create requests\
+-   View their own requests
+
+### Admin
+
+-   View all requests\
+-   Update request statuses
+
+------------------------------------------------------------------------
+
+## Deployment Setup
+
+### Render (Backend)
+
+-   Add Environment Variables\
+-   Use `npm start` in start command\
+-   Add build command (none required)
+
+### Vercel (Frontend)
+
+-   Add `VITE_API_URL="https://yourbackend.onrender.com/api"`\
+-   Deploy automatically from GitHub
+
+------------------------------------------------------------------------
+
+## Common Errors & Fixes
+
+### **Error:** 500 -- Secret key missing
+
+Fix: Add this to backend `.env`:
+
+    JWT_SECRET=yourstrongsecretkey123
+
+### **Error:** CORS blocking requests
+
+Fix already implemented in backend using:
+
+    app.use(cors());
+
+### **Error:** 400 Bad Request
+
+Usually caused by missing request body fields. Ensure the frontend
+sends:
+
+    { email, password }
+
+------------------------------------------------------------------------
+
+## Running Full Project Locally
+
+1.  Start backend
+
+        cd backend
+        npm run dev
+
+2.  Start frontend
+
+        cd frontend
+        npm run dev
+
+3.  Ensure `VITE_API_URL=http://localhost:5000/api`
+
+------------------------------------------------------------------------
+
+## Final Notes
+
+-   Keep `.env` files out of GitHub\
+-   Always update API URLs correctly when switching between localhost
+    and production\
+-   Ensure MongoDB Atlas IP whitelist includes `0.0.0.0/0`
+
+------------------------------------------------------------------------
+
+## Author
+
+**Eunice Wambui**\
+Smart Waste MERN Project
+
+
+https://final-project-8.vercel.app/dashboard
